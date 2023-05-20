@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackjacK game</title>
+    <style>
+        body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            background-image: url(poker.jpg);
+            text-align: center;
+            color: aliceblue;
+            font-weight: bold;
+
+        }
+
+        h1 {
+            color: goldenrod;
+
+        }
+
+        #message-el {
+
+            font-style: italic;
+        }
+
+        button {
+            color: #016f32;
+            width: 150px;
+            background-color: goldenrod;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-weight: bold;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            margin-bottom: 2px;
+            margin-top: 2px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1> Blackjack </h1>
+    <p id="message-el"> want to play a round ?</p>
+    <p id="cards-el">cards:</p>
+    <p id="sum-el">Sum:</p>
+    <button id="startgame-btn" onclick="startgame()">START GAME</button>
+    <button id="newcard-btn" onclick="newcard()">NEW CARD</button>
+    <p id="player-el">Player:</p>
+
+
+
+    <script>
+        // objects 
+        let player = {
+            name : "Amardeep",
+            chips : 134,
+            // sayHello : function(){
+            //     console.log("avinash")
+            // }
+        }
+        // array
+        let cards = []
+        let sum = 0
+        let hasblackjack = false;
+        let isalive = false;
+        let message = "";
+        let messageEl = document.getElementById("message-el")
+        // console.log(messageEl)
+        let sumEl = document.querySelector("#sum-el")
+        // console.log(sumEl)
+        let cardEl = document.querySelector("#cards-el")
+       
+
+        let playerEl = document.querySelector("#player-el");
+        // console.log(playerEl)
+        playerEl.textContent = player.name + ": $" + player.chips
+
+        // new function for random cards =>
+
+        function getRandomcard(){
+            let randomnumber = Math.floor(Math.random() * 13) + 1
+            if (randomnumber > 10){
+                return 10;
+            }
+            else if (randomnumber === 1){
+                return 11
+            }
+            else{
+                return randomnumber
+            }
+        }
+        // convert function start game to render game====>>>>>>>
+
+        function startgame(){
+            isalive = true;
+            let firstcard = getRandomcard()
+            let secondcard = getRandomcard()
+            cards = [firstcard, secondcard]
+            sum = firstcard + secondcard
+            rendergame()
+        }
+        ////////////////////////////////////////
+        function rendergame() {
+            cardEl.textContent = "cards: " 
+            
+            for (let i=0; i < cards.length; i++ ){
+                cardEl.textContent += cards[i] + " "
+            }
+
+            sumEl.textContent = "Sum: " + sum
+            if (sum <= 20) {
+                message = "Do you want to draw a new card ? "
+
+            }
+            else if (sum === 21) {
+                message = "you've got blackjack! "
+                hasblackjack = true;
+
+            }
+            else {
+                message = "You are out of the game! "
+                isalive = false
+            }
+            messageEl.textContent = message
+        }
+
+        function newcard() {
+            console.log("Drawing a new card from the deck!")
+
+            if(hasblackjack=== false && isalive===true){
+            let card = getRandomcard();
+            sum += card
+            cards.push(card)
+            console.log(cards)
+            rendergame()
+            }
+        }
+
+
+
+
+        // learing array
+
+        // let experience = ["subject matter expert in anutham india pvt lmt", "frontend devloper at google","salesforce devloper at infy"]
+        // console.log( experience[2])
+        // console.log(experience[0])
+        // console.log(experience[1])
+
+        // let name = "Amardeep";
+        // let age = 25;
+        // let likePizza = "true";
+        // let myself = [name, age, likePizza];
+        // console.log(myself);
+
+
+            // let message = [
+            //     "hey, how's it going?",
+            //     "I'm great, thank you! How about you?",
+            //     "all good. been working on my portfolio laterly."
+            // ]
+            // let newmessage = "same here!"
+
+            // message.push(newmessage);
+
+            // console.log(message)
+
+
+            //  message.pop()
+            //  console.log(message)
+
+
+
+
+
+            // for loop learning :
+
+            // START         FINISH      STEP SIZE
+
+    //  for(let count=1;     count<21;     count += 1){
+    //     console.log(count)
+    //  }
+
+    // for (let i = 0; i < 6; i += 1) {
+    //     console.log(i)
+    // }
+
+    // for (let i = 10; i < 101; i+= 10){
+    //     console.log(i)
+    // }
+
+    // let message = [
+    //             "hey, how's it going?",
+    //             "I'm great, thank you! How about you?",
+    //             "all good. been working on my portfolio laterly."
+    //         ]
+
+    //         for(let i = 0; i < message.length; i ++){
+    //             console.log(message[i])
+    //         }
+// let cards = [7, 3, 9]
+
+// for(let i=0; i< cards.length; i++){
+//     console.log(cards[i])
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
